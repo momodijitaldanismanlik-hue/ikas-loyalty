@@ -227,7 +227,7 @@ app.get("/ikas-test", async (req, res) => {
   }
 });
 
-app.get("/ikas-orders", async (req, res) => {
+app.get("/ikas-orders", requireAdminSecret, async (req, res) => {
   try {
     const data = await ikasQuery(`
       {
@@ -259,7 +259,7 @@ app.get("/ikas-orders", async (req, res) => {
   }
 });
 
-app.get("/loyalty/:customerId", async (req, res) => {
+app.get("/loyalty-transactions/:customerId", requireAdminSecret, async (req, res) => {
   const { customerId } = req.params;
 
   try {
