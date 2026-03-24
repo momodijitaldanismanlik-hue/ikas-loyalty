@@ -344,7 +344,7 @@ app.post("/earn", async (req, res) => {
   }
 });
 
-app.get("/sync-orders", async (req, res) => {
+app.get("/sync-orders", requireAdminSecret, async (req, res) => {
   try {
     const result = await syncOrders();
     res.json(result);
