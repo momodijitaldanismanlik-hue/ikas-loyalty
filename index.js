@@ -370,3 +370,17 @@ cron.schedule("*/5 * * * *", async () => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+function requireAdminSecret(req, res, next) {
+  const key = req.query.key || req.headers["x-admin-key"];
+
+  if (!process.env.ADMIN_SECRET) {
+    return res.status(500).json({ error: "ADMIN_SECRET tanımlı değil" });
+  }
+
+  if (key !== process.env.ADMIN_SECRET) {
+    return res.status(403).json({ error: "Yetkisiz erişim" });
+  }
+
+  next();
+}
