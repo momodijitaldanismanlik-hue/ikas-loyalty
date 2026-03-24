@@ -311,7 +311,7 @@ app.get("/loyalty-transactions/:customerId", async (req, res) => {
   }
 });
 
-app.post("/earn", async (req, res) => {
+app.post("/earn", requireAdminSecret, async (req, res) => {
   const { customerId, orderId, orderTotal } = req.body;
 
   try {
